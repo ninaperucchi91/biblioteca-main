@@ -1,0 +1,57 @@
+<%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
+
+<div class="container mt-5">
+  <h3>Editar libro</h3>
+  <div class="row mt-5">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-body">
+          <form
+            action="/usuarios/edit/<%= data.idUsuario %>"
+            method="POST"
+          >
+          <div class="form-group">
+            <input
+              type="text"
+              name="nombre_apellido"
+              placeholder="Nombre y apellido"
+              class="form-control"
+              value="<%= data.nombre_apellido %>"
+            />
+          </div>
+          <div class="form-group mt-2">
+            <input
+              type="text"
+              name="dni"
+              placeholder="DNI"
+              class="form-control"
+              value="<%= data.dni %>"
+            />
+          </div>
+          <div class="form-group mt-2">
+            <input
+              type="text"
+              name="CorreoUsuario"
+              placeholder="E-mail"
+              class="form-control"
+              value="<%= data.CorreoUsuario %>"
+            />
+          </div>
+          
+          <div class="form-group mt-2">
+            <input
+              type="text"
+              name="UsuariosDireccion"
+              placeholder="Direccion"
+              class="form-control"
+              value="<%= data.UsuariosDireccion %>"
+            />
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/_footer") -%>

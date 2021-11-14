@@ -1,0 +1,127 @@
+<%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
+
+<div class="container mt-5">
+  <h3 class="mt-2">Libros</h3>
+  <div class="row mt-5">
+    <div class="col-md-9">
+      <table id="table_id" class="display">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>stock</th>
+            <th>Editorial</th>
+            <th>Autor</th>
+            <th>Categoria</th>
+            <th>ISBN</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(data) { %> <% for (var i = 0; i < data.length; i++) { %>
+            <tr>
+              <td><%= data[i].nombre %></td>
+              <td><%= data[i].stock %></td>
+              <td><%= data[i].NombreEditorial %></td>
+              <td><%= data[i].NombreAutor %></td>
+              <td><%= data[i].categorianombre %></td>
+              <td><%= data[i].ISBN %></td>
+              
+            <td>
+              <a
+                href="libros/delete/<%= data[i].idLibro%>"
+                class="btn btn-danger btn-sm"
+                ><i class="bi bi-trash"></i
+              ></a>
+              <a
+                href="libros/edit/<%= data[i].idLibro%>"
+                class="btn btn-warning btn-sm"
+                ><i class="bi bi-pencil"></i
+              ></a>
+            </td>
+          </tr>
+          <% } %> <% } %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <form action="libros/add" method="POST">
+            <div class="form-group">
+              <input
+                type="text"
+                name="nombre"
+                placeholder="Nombre"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group mt-2">
+              <input
+                type="text"
+                name="stock"
+                placeholder="stock"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group mt-2">
+              <input
+                type="text"
+                name="numero_inventario"
+                placeholder="Numero inventario"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group">
+              <label for="Autor_idAutor" class="form-label mt-2">Autor</label>
+              <select class="form-select" name="Autor_idAutor">
+                <% if(autores) { %> <% for (var i = 0; i < autores.length; i++)
+                { %>
+                <option value="<%= autores[i].idAutor%>">
+                  <%= autores[i].NombreAutor%>
+                </option>
+                <% } %> <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="ISBN_idISBN" class="form-label mt-2">ISBN</label>
+              <select class="form-select" name="ISBN_idISBN">
+                <% if(isbn) { %> <% for (var i = 0; i < isbn.length; i++) { %>
+                <option value="<%= isbn[i].idISBN%>"><%= isbn[i].ISBN%></option>
+                <% } %> <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="idEditorial" class="form-label mt-2">Editorial</label>
+              <select class="form-select" name="idEditorial">
+                <% if(editoriales) { %> <% for (var i = 0; i <
+                editoriales.length; i++) { %>
+                <option value="<%= editoriales[i].idEditorial%>">
+                  <%= editoriales[i].NombreEditorial%>
+                </option>
+                <% } %> <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="Categoria_idCategoria" class="form-label mt-2"
+                >Categoria</label
+              >
+              <select class="form-select" name="Categoria_idCategoria">
+                <% if(categorias) { %> <% for (var i = 0; i < categorias.length;
+                i++) { %>
+                <option value="<%= categorias[i].idCategoria%>">
+                  <%= categorias[i].categorianombre%>
+                </option>
+                <% } %> <% } %>
+              </select>
+            </div>
+            <div class="form-group mt-2">
+              <button type="submit" class="btn btn-primary">GUARDAR</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/_footer") -%>

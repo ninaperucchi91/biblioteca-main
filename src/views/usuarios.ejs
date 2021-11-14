@@ -1,0 +1,148 @@
+<%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
+
+<div class="container mt-5">
+  <h3 class="mt-2">ABM usuarios</h3>
+  <div class="row mt-5">
+    <div class="col-md-9">
+      <table id="table_id" class="display">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Tel</th>
+            <th>Correo</th>
+            <th>Direccion</th>
+            <th>tipo</th>
+            <th>Año</th>
+            <th>Carrera</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(data) { %> <% for (var i = 0; i < data.length; i++) { %>
+            <tr>
+              <td><%= data[i].nombre_apellido %></td>
+              <td><%= data[i].dni %></td>
+              <td><%= data[i].telefono %></td>
+              <td><%= data[i].CorreoUsuario %></td>
+              <td><%= data[i].UsuariosDireccion %></td>
+              <td><%= data[i].tiposusuario.idTipoUsuario%></td>
+              <td><%= data[i].tiposusuario.Descripcion %></td>
+              <% if(carrera) { %> <% for (var i = 0; i < carrera.length; i++) { %>
+              <td><%= carrera[i].AñoCarrera %></td>
+              <td><%= carrera[i].NombreCarrera %></td>
+              
+            <td>
+              <a
+                href="usuarios/delete/<%= data[i].idUsuario%>"
+                class="btn btn-danger btn-sm"
+                ><i class="bi bi-trash"></i
+              ></a>
+              <a
+                href="usuarios/edit/<%= data[i].idUsuario%>"
+                class="btn btn-warning btn-sm"
+                ><i class="bi bi-pencil"></i
+              ></a>
+            </td>
+          </tr>
+          <% } %> <% } %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="card-body">
+          <form action="usuarios/add" method="POST">
+            <div class="form-group">
+              <input
+                type="text"
+                name="nombre_apellido"
+                placeholder="Nombre completo"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group mt-2">
+              <input
+                type="text"
+                name="DNI"
+                placeholder="dni"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group mt-2">
+              <input
+                type="text"
+                name="telefono"
+                placeholder="Tel"
+                class="form-control"
+              />
+            </div>
+            <div class="form-group mt-2">
+                <input
+                  type="text"
+                  name="CorreoUsuario"
+                  placeholder="E-mail"
+                  class="form-control"
+                />
+              </div>
+              <div class="form-group mt-2">
+                <input
+                  type="text"
+                  name="UsuariosDireccion"
+                  placeholder="direccion"
+                  class="form-control"
+                />
+              </div>
+
+
+              <div class="form-group">
+                <label for="" class="form-label mt-2">Autor</label>
+                <select class="form-select" name="Autor_idAutor">
+                  <% if(autores) { %> <% for (var i = 0; i < autores.length; i++)
+                  { %>
+                  <option value="<%= autores[i].idAutor%>">
+                    <%= autores[i].NombreAutor%>
+                  </option>
+                  <% } %> <% } %>
+                </select>
+              </div>
+
+            <div class="form-group">
+              <label for="tiposusuario.idTipoUsuario" class="form-label mt-2">Tipo</label>
+              <select class="form-select" name="tiposusuario.idTipoUsuario">
+                <% if(data) { %> <% for (var i = 0; i < data.length; i++)
+                { %>
+                <option value="<%= data[i].idTipoUsuario%>">
+                  <%= data[i].Descripcion%>
+                </option>
+                <% } %> <% } %>
+              </select>
+            </div>
+            <div class="form-group mt-2">
+                <input
+                  type="text"
+                  name="AñoCarrera" <!--tablas nivel, cursos, carrera año-->
+                  placeholder="Año carrera"
+                  class="form-control"
+                />
+              </div>
+
+            <div class="form-group">
+              <label for="idCarrera" class="form-label mt-2">Carrera</label>
+              <select class="form-select" name="idCarrera">
+                <% if(carrera) { %> <% for (var i = 0; i < carrera.length; i++) { %>
+                <option value="<%= carrera[i].idCarrera%>"><%= carrera[i].NombreCarrera%></option>
+                <% } %> <% } %>
+              </select>
+            </div>
+            <div class="form-group mt-2">
+              <button type="submit" class="btn btn-primary">GUARDAR</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/_footer") -%>

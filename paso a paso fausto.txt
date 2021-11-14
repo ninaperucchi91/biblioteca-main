@@ -1,0 +1,13 @@
+1_se habla del problema "base de datos relacionado para tal problema"
+con un analisis previo se plantea un diagrama entidad relacion:
+2_mostrar diagrama entidad relacion (modelo logico)
+3_ se habla de las cardinalidades
+4_ identidad referencial(restricciones)
+5_ hablar de las entidades que se crearon a partir del problema
+6_ hablar de la herramienta case que se utilizo (workbench) case: ingeniera computadora asistida
+7_ mostrar diagrama entidad relacion modelo fisico(cuando nos conectamos a la base de datos)
+8_ hablar del cliente y motor de base de datos
+9_ mostrar el DDL (data definition lamba) cuando exportamos la base de datos y definimos la base de datos, las tablas etc
+10_ mostrar DML (data manipulation lenguage) select, funcion de agregado, inner join, count, update, delete
+11_ junto con el lenguaje que utilizamos mostramos como realizamos el uso de DML
+12_ se muestra desde el back end al front end 
