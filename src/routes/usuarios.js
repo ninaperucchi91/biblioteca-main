@@ -9,15 +9,17 @@ router.get("/", async (req, res) => {
       `select idUsuario, nombre_apellido, dni, telefono, CorreoUsuario, UsuariosDireccion, tiposusuario.idTipoUsuario, 
       tiposusuario.Descripcion from usuarios inner join tiposusuario on 
       usuarios.idTipoUsuario = tiposusuario.idTipoUsuario;
-      SELECT * from carrera;`,
+      SELECT * from carrera;
+      SELECT * from tiposusuario;`,
 
       function (err, results) {
         if (err) throw err;
-        console.log(results[0])
+        console.log(results[0]);
         res.render("usuarios", {
           data: results[0],
-          carrera: results [1],
-          });
+          carrera: results[1],
+          tipos_usuario: results[2],
+        });
       }
     );
   });
@@ -42,16 +44,11 @@ router.get("/delete/:id", (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
     if (err) res.json(err);
-    conn.query(
-
-      "DELETE FROM usuarios WHERE idUsuario = ?",
-      [id],
-      (err, row) => {
-        if (err) res.json(err);
-        console.log(row);
-        res.redirect("/usuarios");
-      }
-    );
+    conn.query("DELETE FROM usuarios WHERE idUsuario = ?", [id], (err, row) => {
+      if (err) res.json(err);
+      console.log(row);
+      res.redirect("/usuarios");
+    });
   });
 });
 
@@ -63,13 +60,13 @@ router.get("/edit/:id", (req, res) => {
     conn.query(
       `
       select * from usuarios where idUsuario= ?;`,
-[id],
-     function  (err, results) {
+      [id],
+      function (err, results) {
         if (err) res.json(err);
         console.log(results);
-        res.render("usuarios_edit", { 
+        res.render("usuarios_edit", {
           data: results[0][0],
-         });
+        });
       }
     );
   });

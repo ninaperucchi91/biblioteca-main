@@ -7,8 +7,7 @@
       <table id="table_id" class="display">
         <thead>
           <tr>
-            <th>Clase de usuario/th>
-            <th>ID</th>
+            <th>Clase de usuario</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -16,7 +15,6 @@
           <% if(data) { %> <% for (var i = 0; i < data.length; i++) { %>
           <tr>
             <td><%= data[i].Descripcion%></td>
-            <td><%= data[i].idTipoUsuario %></td>
             <td>
               <a
                 href="tipousuarios/delete/<%= data[i].idTipoUsuario%>"
@@ -46,7 +44,7 @@
                 class="form-control"
               />
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
               <button type="submit" class="btn btn-primary">GUARDAR</button>
             </div>
           </form>
