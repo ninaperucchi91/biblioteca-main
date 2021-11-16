@@ -29,7 +29,7 @@ app.use(
     {
       host: "localhost",
       user: "root",
-      password: "root",
+      password: "password",
       port: "3306",
       database: "mydb",
       multipleStatements: true,
@@ -52,7 +52,6 @@ app.use("/tiempo", tiemposRoutes);
 app.use("/usuarios", usuarioRoutes);
 app.use("/carreras", carrerasRoutes);
 app.use("/tipousuarios", tipousuariosRoutes);
-
 
 // static files
 app.use(express.static(path.join(__dirname, "public")));

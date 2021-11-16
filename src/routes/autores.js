@@ -27,42 +27,18 @@ router.post("/add", (req, res) => {
   });
 });
 
-// DELETE ACTION
-//router.get("/delete/:id", (req, res) => {
- // const { id } = req.params;
-  //req.getConnection((err, conn) => {
-   // if (err) res.json(err);
-    //conn.query("DELETE FROM autor WHERE idAutor = ?", [id], (err, row) => {
-     // if (err) res.json(err);
-      //console.log(row);
-      //res.redirect("/autores");
-    //});
-  //});
-//});
-
-
+//DELETE ACTION
 router.get("/delete/:id", (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
-
-try {
-  if (err) res.json(err);
-  conn.query("DELETE FROM autor WHERE idAutor = ?", [id], (err, row) => {
     if (err) res.json(err);
-    console.log(row);
-    res.redirect("/autores");
+    conn.query("DELETE FROM autor WHERE idAutor = ?", [id], (err, row) => {
+      if (err) res.json(err);
+      console.log(row);
+      res.redirect("/autores");
+    });
   });
-}
-catch(err) {
-  message.innerHTML = "Input is " + err;
-
-}
-finally {
-  res.redirect("/autores");
-  }
 });
-});
-
 
 // EDIT
 router.get("/edit/:id", (req, res) => {
@@ -76,8 +52,6 @@ router.get("/edit/:id", (req, res) => {
     });
   });
 });
-
-
 
 // EDIT ACTION
 router.post("/edit/:id", (req, res) => {
