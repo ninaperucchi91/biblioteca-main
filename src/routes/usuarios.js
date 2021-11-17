@@ -28,7 +28,9 @@ router.get("/", async (req, res) => {
 // ADD ACTION
 router.post("/add", (req, res) => {
   const data = req.body;
-  console.log("asd", data);
+  const idCarrera = data["idCarrera"];
+  delete data["idCarrera"];
+  console.log("asd", data, idCarrera);
   req.getConnection((err, conn) => {
     if (err) res.json(err);
     conn.query("INSERT INTO usuarios set ?", [data], (err, row) => {
@@ -65,7 +67,7 @@ router.get("/edit/:id", (req, res) => {
         if (err) res.json(err);
         console.log(results);
         res.render("usuarios_edit", {
-          data: results[0][0],
+          data: results[0],
         });
       }
     );

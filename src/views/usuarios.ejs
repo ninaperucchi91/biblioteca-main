@@ -1,7 +1,7 @@
 <%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
 
-<div class="container mt-5">
-  <h3 class="mt-2">ABM usuarios</h3>
+<div class="container-fluid mt-5">
+  <h3 class="mt-2">Usuarios</h3>
   <div class="row mt-5">
     <div class="col-md-9">
       <table id="table_id" class="display">
@@ -12,8 +12,7 @@
             <th>Tel</th>
             <th>Correo</th>
             <th>Direccion</th>
-            <th>tipo</th>
-            <th>Año</th>
+            <th>Tipo</th>
             <th>Carrera</th>
             <th>Acciones</th>
           </tr>
@@ -26,11 +25,8 @@
             <td><%= data[i].telefono %></td>
             <td><%= data[i].CorreoUsuario %></td>
             <td><%= data[i].UsuariosDireccion %></td>
-            <td><%= data[i].tiposusuario.idTipoUsuario%></td>
-            <td><%= data[i].tiposusuario.Descripcion %></td>
+            <td><%= data[i].Descripcion %></td>
             <td>sss</td>
-            <td>sss</td>
-
             <td>
               <a
                 href="usuarios/delete/<%= data[i].idUsuario%>"
