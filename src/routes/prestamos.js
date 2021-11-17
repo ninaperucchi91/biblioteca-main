@@ -30,6 +30,31 @@ const quitarStockQuery = `UPDATE libros
     SET stock = stock - ?
     WHERE idLibro = ?;`;
 
+const listMovimientosQuery = `SELECT movimientos.*, libros.nombre, 
+    usuarios.nombre_apellido, usuarios.dni FROM mydb.movimientos 
+    inner join usuarios on movimientos.idEstudiante = usuarios.idUsuario
+    inner join libros on movimientos.idLibro = libros.idLibro
+    order by idMovimientos desc;`;
+
+const deleteMovimientoQuery = `DELETE FROM movimientos WHERE idMovimientos = ?;`;
+
+const addStockQuery = `UPDATE libros
+    SET stock = stock + ?
+    WHERE idLibro = ?;`;
+
+//LISTADO
+router.get("/", (req, res) => {
+  req.getConnection((err, conn) => {
+    if (err) res.json(err);
+    conn.query(listMovimientosQuery, (err, filas) => {
+      if (err) res.json(err);
+      res.render("prestamo", {
+        data: filas,
+      });
+    });
+  });
+});
+
 //NEW
 router.get("/new/:idLibro-:idUsuario", (req, res) => {
   const { idLibro, idUsuario } = req.params;
@@ -89,6 +114,24 @@ router.post("/new/:idLibro-:idUsuario", (req, res) => {
         if (row.length > 0) {
           res.redirect("/prestamo");
         }
+      }
+    );
+  });
+});
+
+//DELETE ACTION
+router.get("/delete/:id-:cantidad-:idLibro", (req, res) => {
+  const { id, cantidad, idLibro } = req.params;
+  console.log(id, cantidad, idLibro);
+  req.getConnection((err, conn) => {
+    if (err) res.json(err);
+    conn.query(
+      deleteMovimientoQuery + addStockQuery,
+      [id, cantidad, idLibro],
+      (err, row) => {
+        if (err) res.json(err);
+        console.log(row);
+        res.redirect("/prestamo");
       }
     );
   });

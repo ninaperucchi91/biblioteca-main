@@ -1,0 +1,54 @@
+<%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
+
+<div class="container">
+  <h3 class="mt-2">Prestamos</h3>
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <table id="table_id" class="display">
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Usuario</th>
+            <th>Dni</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(data) { %> <% for (var i = 0; i < data.length; i++) { %>
+          <tr>
+            <td><%= data[i].nombre %></td>
+            <td><%= data[i].nombre_apellido %></td>
+            <td><%= data[i].dni %></td>
+            <td><%= data[i].cantidad %></td>
+            <td><%= data[i].fecha.toDateString() %></td>
+            <td>
+              <% if(data[i].esRetiro) { %>
+              <button class="btn btn-success btn-sm">ENTREGADO</button>
+              <% }else{ %>
+              <button class="btn btn-danger btn-sm">PENDIENTE</button>
+              <% } %>
+            </td>
+            <td>
+              <a
+                href="prestamo/delete/<%= `${data[i].idMovimientos}-${data[i].cantidad}-${data[i].IdLibro}`%>"
+                class="btn btn-danger btn-sm"
+                ><i class="bi bi-trash"></i
+              ></a>
+              <a
+                href="prestamo/devolucion/<%= data[i].idMovimientos%>"
+                class="btn btn-warning btn-sm"
+                >DEVOLUCION</a
+              >
+            </td>
+          </tr>
+          <% } %> <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%- include("partials/_footer") -%>
