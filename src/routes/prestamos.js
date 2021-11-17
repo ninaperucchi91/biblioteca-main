@@ -26,6 +26,9 @@ const tiempoEstadiaQuery = `SELECT * from tiempoestadia;`;
 
 const addMovimientoQuery = `INSERT INTO movimientos set ?;`;
 
+const movimientoQuery = `SELECT * from movimientos
+where idMovimientos = ?;`;
+
 const quitarStockQuery = `UPDATE libros
     SET stock = stock - ?
     WHERE idLibro = ?;`;
@@ -41,6 +44,10 @@ const deleteMovimientoQuery = `DELETE FROM movimientos WHERE idMovimientos = ?;`
 const addStockQuery = `UPDATE libros
     SET stock = stock + ?
     WHERE idLibro = ?;`;
+
+const updateMovimientosQuery = `UPDATE movimientos
+SET esRetiro = ?
+WHERE idMovimientos = ?;`;
 
 //LISTADO
 router.get("/", (req, res) => {
@@ -128,6 +135,49 @@ router.get("/delete/:id-:cantidad-:idLibro", (req, res) => {
     conn.query(
       deleteMovimientoQuery + addStockQuery,
       [id, cantidad, idLibro],
+      (err, row) => {
+        if (err) res.json(err);
+        console.log(row);
+        res.redirect("/prestamo");
+      }
+    );
+  });
+});
+
+//DEVOLUCION
+router.get("/devolucion/:id-:idUsuario-:idLibro", (req, res) => {
+  const { id, idUsuario, idLibro } = req.params;
+  console.log(id, idUsuario, idLibro);
+  req.getConnection((err, conn) => {
+    if (err) res.json(err);
+    conn.query(
+      movimientoQuery + usuarioQuery + libroQuery,
+      [id, idUsuario, idLibro],
+      (err, row) => {
+        if (err) res.json(err);
+        console.log(row);
+        res.render("devolucion", {
+          movimiento: row[0][0],
+          usuario: row[1][0],
+          libro: row[2][0],
+        });
+      }
+    );
+  });
+});
+
+//DEVOLUCION ACTION
+router.post("/devolucion/:id-:idUsuario-:idLibro", (req, res) => {
+  const { id, idUsuario, idLibro } = req.params;
+  let data = req.body;
+  data["idLibro"] = idLibro;
+  data["idEstudiante"] = idUsuario;
+  data["esRetiro"] = 3;
+  req.getConnection((err, conn) => {
+    if (err) res.json(err);
+    conn.query(
+      updateMovimientosQuery + addMovimientoQuery + addStockQuery,
+      [1, id, data, data.cantidad, idLibro],
       (err, row) => {
         if (err) res.json(err);
         console.log(row);

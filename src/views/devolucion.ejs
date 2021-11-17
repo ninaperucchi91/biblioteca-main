@@ -1,5 +1,73 @@
 <%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
 
-<div class="container"></div>
+<div class="container mt-5">
+  <h3>Devolucion - Cantidad Prestada: <%= movimiento.cantidad %></h3>
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card text-white bg-success mb-3">
+        <div class="card-header">Libro</div>
+        <div class="card-body">
+          <h4 class="card-title"><%= libro.nombre %></h4>
+          <p class="card-text">
+            <p>Numero Inventario: <%= libro.numero_inventario %></p>
+            <p>Autor: <%= libro.NombreAutor %></p>
+            <p>Editorial: <%= libro.NombreEditorial %></p>
+            <p>Categoria: <%= libro.categorianombre %></p>
+            <p>ISBN: <%= libro.ISBN %></p>
+            <h3 class="text-white">Stock: <%= libro.stock %></h3>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Usuario</div>
+            <div class="card-body">
+              <h4 class="card-title"><%= usuario.nombre_apellido %></h4>
+              <p class="card-text">
+                <p>DNI: <%= usuario.dni %></p>
+                <p>Tipo Usuario: <%= usuario.Descripcion %></p>
+                <p>Carrera: <%= usuario.NombreCarrera %></p>
+                <p>Año: <%= usuario.AñoCarrera %></p>
+              </p>
+            </div>
+          </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+              <form action="<%= `${movimiento.idMovimientos}-${movimiento.idEstudiante}-${libro.idLibro}` %>" method="POST">
+                <div class="form-group">
+                  <input
+                    type="number"
+                    name="cantidad"
+                    placeholder="Cantidad"
+                    class="form-control"
+                    min="1" 
+                    max="<%= movimiento.cantidad %>"
+                    value="<%= movimiento.cantidad %>"
+                    required
+                    readonly
+                  />
+                </div>
+                <input
+                    type="text"
+                    name="TiempoEstadia_idTiempoEstadia"
+                    class="form-control"
+                    value="<%= movimiento.TiempoEstadia_idTiempoEstadia %>"
+                    required
+                    readonly
+                    hidden
+                  />
+                <div class="form-group mt-2">
+                  <button type="submit" class="btn btn-primary">CONFIRMAR</button>
+                </div>
+              </form>
+            </div>
+          </div>
+    </div>
+  </div>
+</div>
 
 <%- include("partials/_footer") -%>

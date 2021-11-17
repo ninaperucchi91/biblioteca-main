@@ -25,9 +25,11 @@
             <td><%= data[i].cantidad %></td>
             <td><%= data[i].fecha.toDateString() %></td>
             <td>
-              <% if(data[i].esRetiro) { %>
+              <% if(data[i].esRetiro == 1) { %>
               <button class="btn btn-success btn-sm">ENTREGADO</button>
-              <% }else{ %>
+              <% } %> <% if(data[i].esRetiro == 3) { %>
+              <button class="btn btn-info btn-sm">DEVOLUCION</button>
+              <% } %> <% if(data[i].esRetiro == 0) { %>
               <button class="btn btn-danger btn-sm">PENDIENTE</button>
               <% } %>
             </td>
@@ -38,7 +40,7 @@
                 ><i class="bi bi-trash"></i
               ></a>
               <a
-                href="prestamo/devolucion/<%= data[i].idMovimientos%>"
+                href="prestamo/devolucion/<%= `${data[i].idMovimientos}-${data[i].idEstudiante}-${data[i].IdLibro}`%>"
                 class="btn btn-warning btn-sm"
                 >DEVOLUCION</a
               >
