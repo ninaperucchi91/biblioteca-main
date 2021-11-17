@@ -7,7 +7,7 @@ npm install
 npm run dev
 
 TODO:
-VALIDACIONES -
-MENSAJES DE ERROR -
-CONFIRMACION DE ELIMINACION -
-TRIGGERS -
+triggers (esta hecho en autor de ejemplo)
+imprimir pdf (pendiente gere)
+devolucion menor al original
+ORDENAR TABLA
