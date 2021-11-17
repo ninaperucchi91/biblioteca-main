@@ -6,9 +6,11 @@ router.get("/", async (req, res) => {
   req.getConnection(async (err, conn) => {
     if (err) res.json(err);
     conn.query(
-      `select idUsuario, nombre_apellido, dni, telefono, CorreoUsuario, UsuariosDireccion, tiposusuario.idTipoUsuario, 
-      tiposusuario.Descripcion from usuarios inner join tiposusuario on 
-      usuarios.idTipoUsuario = tiposusuario.idTipoUsuario;
+      `select idUsuario, nombre_apellido, dni, telefono, CorreoUsuario, UsuariosDireccion, 
+      tiposusuario.Descripcion, carrera.NombreCarrera, carrera.AñoCarrera 
+      from usuarios 
+      inner join tiposusuario on usuarios.idTipoUsuario = tiposusuario.idTipoUsuario
+      inner join carrera on usuarios.idCarrera = carrera.idCarrera;
       SELECT * from carrera;
       SELECT * from tiposusuario;`,
 
@@ -28,9 +30,7 @@ router.get("/", async (req, res) => {
 // ADD ACTION
 router.post("/add", (req, res) => {
   const data = req.body;
-  const idCarrera = data["idCarrera"];
-  delete data["idCarrera"];
-  console.log("asd", data, idCarrera);
+  console.log("asd", data);
   req.getConnection((err, conn) => {
     if (err) res.json(err);
     conn.query("INSERT INTO usuarios set ?", [data], (err, row) => {
@@ -61,13 +61,17 @@ router.get("/edit/:id", (req, res) => {
     if (err) res.json(err);
     conn.query(
       `
-      select * from usuarios where idUsuario= ?;`,
+      SELECT * from usuarios where idUsuario= ?;
+      SELECT * from carrera; 
+      SELECT * from tiposusuario;`,
       [id],
       function (err, results) {
         if (err) res.json(err);
         console.log(results);
         res.render("usuarios_edit", {
-          data: results[0],
+          data: results[0][0],
+          carreras: results[1],
+          tiposusuario: results[2],
         });
       }
     );

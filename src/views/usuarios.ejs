@@ -26,7 +26,7 @@
             <td><%= data[i].CorreoUsuario %></td>
             <td><%= data[i].UsuariosDireccion %></td>
             <td><%= data[i].Descripcion %></td>
-            <td>sss</td>
+            <td><%= `${data[i].NombreCarrera}(${data[i].AñoCarrera})` %></td>
             <td>
               <a
                 href="usuarios/delete/<%= data[i].idUsuario%>"

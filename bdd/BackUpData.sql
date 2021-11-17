@@ -28,7 +28,7 @@ CREATE TABLE `autor` (
   PRIMARY KEY (`idAutor`),
   UNIQUE KEY `numero_inventario_UNIQUE` (`NombreAutor`),
   UNIQUE KEY `idLibro_UNIQUE` (`idAutor`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `autor` (
 
 LOCK TABLES `autor` WRITE;
 /*!40000 ALTER TABLE `autor` DISABLE KEYS */;
-INSERT INTO `autor` VALUES (4,'Lucas Geremias'),(5,'Neruda'),(6,'Nietche');
+INSERT INTO `autor` VALUES (4,'Coello'),(5,'Geremias'),(6,'Neruda');
 /*!40000 ALTER TABLE `autor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,11 +51,11 @@ DROP TABLE IF EXISTS `carrera`;
 CREATE TABLE `carrera` (
   `idCarrera` int NOT NULL AUTO_INCREMENT,
   `NombreCarrera` varchar(45) NOT NULL,
-  `AñoCarrera` int DEFAULT NULL,
+  `AñoCarrera` varchar(5) DEFAULT NULL,
   PRIMARY KEY (`idCarrera`),
   UNIQUE KEY `numero_inventario_UNIQUE` (`NombreCarrera`),
   UNIQUE KEY `idLibro_UNIQUE` (`idCarrera`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,14 +64,13 @@ CREATE TABLE `carrera` (
 
 LOCK TABLES `carrera` WRITE;
 /*!40000 ALTER TABLE `carrera` DISABLE KEYS */;
-INSERT INTO `carrera` VALUES (2,'Analista',2020),(3,'Magisterio',2017),(4,'Preceptoria',2018);
+INSERT INTO `carrera` VALUES (1,'Analista de Sistemas','2020'),(2,'Preceptoria','2015'),(3,'Magisterio','2019');
 /*!40000 ALTER TABLE `carrera` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
-
-
-
+-- Table structure for table `categoria`
+--
 
 DROP TABLE IF EXISTS `categoria`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -83,7 +82,7 @@ CREATE TABLE `categoria` (
   PRIMARY KEY (`idCategoria`),
   UNIQUE KEY `numero_inventario_UNIQUE` (`categorianombre`),
   UNIQUE KEY `idLibro_UNIQUE` (`idCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +91,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'Suspenso','Dedicado a lectores de terror'),(2,'Literatura','Secundario'),(3,'Lengua y Literatura','Nivel Basico');
+INSERT INTO `categoria` VALUES (1,'Suspenso','Literario'),(2,'Lengua y Literatura','Primaria'),(3,'Matematicas','Aplicada y Economia');
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +108,7 @@ CREATE TABLE `editorial` (
   PRIMARY KEY (`idEditorial`),
   UNIQUE KEY `numero_inventario_UNIQUE` (`NombreEditorial`),
   UNIQUE KEY `idLibro_UNIQUE` (`idEditorial`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +117,7 @@ CREATE TABLE `editorial` (
 
 LOCK TABLES `editorial` WRITE;
 /*!40000 ALTER TABLE `editorial` DISABLE KEYS */;
-INSERT INTO `editorial` VALUES (1,'Los Pajaros Blancos'),(4,'Luna Nueva'),(3,'Santillana');
+INSERT INTO `editorial` VALUES (3,'Alta Editorial'),(2,'Los Pajaros Blancos'),(1,'Santillana');
 /*!40000 ALTER TABLE `editorial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +143,7 @@ CREATE TABLE `isbn` (
 
 LOCK TABLES `isbn` WRITE;
 /*!40000 ALTER TABLE `isbn` DISABLE KEYS */;
-INSERT INTO `isbn` VALUES (1,111111),(2,222222),(3,333333);
+INSERT INTO `isbn` VALUES (1,111111),(2,222222),(3,333333),(4,444444);
 /*!40000 ALTER TABLE `isbn` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +174,7 @@ CREATE TABLE `libros` (
   CONSTRAINT `fk_Libros_Categoria1` FOREIGN KEY (`Categoria_idCategoria`) REFERENCES `categoria` (`idCategoria`),
   CONSTRAINT `fk_Libros_Editorial` FOREIGN KEY (`idEditorial`) REFERENCES `editorial` (`idEditorial`),
   CONSTRAINT `fk_Libros_ISBN1` FOREIGN KEY (`ISBN_idISBN`) REFERENCES `isbn` (`idISBN`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +183,7 @@ CREATE TABLE `libros` (
 
 LOCK TABLES `libros` WRITE;
 /*!40000 ALTER TABLE `libros` DISABLE KEYS */;
-INSERT INTO `libros` VALUES (1,'23465',10,'El Casique 3',6,2,2,4);
+INSERT INTO `libros` VALUES (1,'223452',15,'El libro de Nirvana',5,2,2,1);
 /*!40000 ALTER TABLE `libros` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -237,7 +236,7 @@ CREATE TABLE `tiempoestadia` (
   PRIMARY KEY (`idTiempoEstadia`),
   UNIQUE KEY `numero_inventario_UNIQUE` (`TiempoEstadia`),
   UNIQUE KEY `idLibro_UNIQUE` (`idTiempoEstadia`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -261,7 +260,7 @@ CREATE TABLE `tiposusuario` (
   `idTipoUsuario` int NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idTipoUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,7 +269,7 @@ CREATE TABLE `tiposusuario` (
 
 LOCK TABLES `tiposusuario` WRITE;
 /*!40000 ALTER TABLE `tiposusuario` DISABLE KEYS */;
-INSERT INTO `tiposusuario` VALUES (1,'Primario'),(2,'Secundario'),(4,'Terciario');
+INSERT INTO `tiposusuario` VALUES (1,'Administrativo'),(2,'Alumno'),(3,'Profesorado');
 /*!40000 ALTER TABLE `tiposusuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,14 +284,17 @@ CREATE TABLE `usuarios` (
   `idUsuario` int NOT NULL AUTO_INCREMENT,
   `nombre_apellido` varchar(80) NOT NULL,
   `dni` varchar(15) NOT NULL,
-  `telefono` int DEFAULT NULL,
+  `telefono` varchar(45) DEFAULT NULL,
   `CorreoUsuario` varchar(45) NOT NULL,
   `UsuariosDireccion` varchar(45) DEFAULT NULL,
   `idTipoUsuario` int NOT NULL,
+  `idCarrera` int DEFAULT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `idEstudiantes_UNIQUE` (`idUsuario`),
   UNIQUE KEY `dni_UNIQUE` (`dni`),
   KEY `Usuario_TIpoUsuario_idx` (`idTipoUsuario`),
+  KEY `Usuario_Carrera_idx` (`idCarrera`),
+  CONSTRAINT `Usuario_Carrera` FOREIGN KEY (`idCarrera`) REFERENCES `carrera` (`idCarrera`),
   CONSTRAINT `Usuario_TIpoUsuario` FOREIGN KEY (`idTipoUsuario`) REFERENCES `tiposusuario` (`idTipoUsuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -303,7 +305,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Lucas Geremias','1329439',348348,'email@email.com','ch102 mz 11 casa 8',2);
+INSERT INTO `usuarios` VALUES (1,'Lucas Geremias','37586819','3764665268','geremias@email.com','ch102 mz 11 casa 8',3,1),(2,'Lizi','23453435','395938490','lizi@email.com','en la cll',2,2);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -316,4 +318,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-16 21:11:07
+-- Dump completed on 2021-11-17  2:49:14

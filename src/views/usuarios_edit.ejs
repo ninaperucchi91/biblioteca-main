@@ -53,6 +53,36 @@
                 value="<%= data.UsuariosDireccion %>"
               />
             </div>
+
+            <div class="form-group">
+              <label for="idCarrera" class="form-label mt-2"
+                >Carrera</label
+              >
+              <select class="form-select" name="idCarrera">
+                <% if(carreras) { %> <% for (var i = 0; i < carreras.length;
+                i++) { %>carreras
+                <option <%=( data.idCarrera == carreras[i].idCarrera ) ? "selected"
+                : ""; %> value="<%= carreras[i].idCarrera%>">
+                  <%= carreras[i].NombreCarrera%>
+                </option>
+                <% } %> <% } %>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="idTipoUsuario" class="form-label mt-2"
+                >Tipo Usuario</label
+              >
+              <select class="form-select" name="idTipoUsuario">
+                <% if(tiposusuario) { %> <% for (var i = 0; i < tiposusuario.length;
+                i++) { %>
+                <option <%=( data.idTipoUsuario == tiposusuario[i].idTipoUsuario ) ? "selected"
+                : ""; %> value="<%= tiposusuario[i].idTipoUsuario%>">
+                  <%= tiposusuario[i].Descripcion%>
+                </option>
+                <% } %> <% } %>
+              </select>
+            </div>
             <div class="form-group mt-2">
               <button type="submit" class="btn btn-primary">GUARDAR</button>
             </div>
