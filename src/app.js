@@ -7,6 +7,7 @@ const myConnection = require("express-myconnection");
 const app = express();
 
 // import routes
+const homeRoutes = require("./routes/home");
 const categoriasRoutes = require("./routes/categoria");
 const editorialesRoutes = require("./routes/editorial");
 const isbnRoutes = require("./routes/isbn");
@@ -16,6 +17,7 @@ const tiemposRoutes = require("./routes/tiempo");
 const usuarioRoutes = require("./routes/usuarios");
 const carrerasRoutes = require("./routes/carreras");
 const tipousuariosRoutes = require("./routes/tipousuarios");
+const prestamosRoutes = require("./routes/prestamos");
 
 app.set("port", process.env.PORT || 3000);
 app.set("view engine", "ejs");
@@ -40,9 +42,7 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 
 // routes
-app.get("/", (req, res) => {
-  res.render("home");
-});
+app.use("/", homeRoutes);
 app.use("/categorias", categoriasRoutes);
 app.use("/editoriales", editorialesRoutes);
 app.use("/isbn", isbnRoutes);
@@ -52,6 +52,7 @@ app.use("/tiempo", tiemposRoutes);
 app.use("/usuarios", usuarioRoutes);
 app.use("/carreras", carrerasRoutes);
 app.use("/tipousuarios", tipousuariosRoutes);
+app.use("/prestamo", prestamosRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, "public")));

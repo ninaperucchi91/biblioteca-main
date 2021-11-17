@@ -1,5 +1,50 @@
 <%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
 
-<h1>Home</h1>
+<div class="container mt-5">
+  <h3 class="mt-2">Inventario</h3>
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <table id="table_id" class="display">
+        <thead>
+          <tr>
+            <th>Titulo</th>
+            <th>N° Inventario</th>
+            <th>Stock</th>
+            <th>Editorial</th>
+            <th>Autor</th>
+            <th>Categoria</th>
+            <th>ISBN</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if(data) { %> <% for (var i = 0; i < data.length; i++) { %>
+          <tr>
+            <td><%= data[i].nombre %></td>
+            <td><%= data[i].numero_inventario %></td>
+            <td><%= data[i].stock %></td>
+            <td><%= data[i].NombreEditorial %></td>
+            <td><%= data[i].NombreAutor %></td>
+            <td><%= data[i].categorianombre %></td>
+            <td><%= data[i].ISBN %></td>
+
+            <td>
+              <% if(data[i].stock > 0) { %>
+              <a
+                href="prestamo/new/<%= data[i].idLibro%>-0"
+                class="btn btn-warning btn-sm"
+                >PRESTAMO</a
+              >
+              <% }else{ %>
+              <button class="btn btn-danger btn-sm">SIN STOCK</button>
+              <% } %>
+            </td>
+          </tr>
+          <% } %> <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 
 <%- include("partials/_footer") -%>

@@ -1,0 +1,144 @@
+<%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
+
+<div class="container mt-5">
+  <% if(step == 2) { %>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>PASO 2: SELECCIONAR USUARIO</h3>
+      <div class="bs-component">
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-info"
+            role="progressbar"
+            style="width: 33%"
+            aria-valuenow="33"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } %> <% if(step == 3) { %>
+  <div class="row">
+    <div class="col-md-12">
+      <h3>PASO 3: COMPLETAR INFORMACION</h3>
+      <div class="bs-component">
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-info"
+            role="progressbar"
+            style="width: 66%"
+            aria-valuenow="66"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% } %>
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <div class="card text-white bg-success mb-3">
+        <div class="card-header">Libro</div>
+        <div class="card-body">
+          <h4 class="card-title"><%= data.nombre %></h4>
+          <p class="card-text">
+            <p>Numero Inventario: <%= data.numero_inventario %></p>
+            <p>Autor: <%= data.NombreAutor %></p>
+            <p>Editorial: <%= data.NombreEditorial %></p>
+            <p>Categoria: <%= data.categorianombre %></p>
+            <p>ISBN: <%= data.ISBN %></p>
+            <h3 class="text-white">Stock: <%= data.stock %></h3>
+          </p>
+        </div>
+      </div>
+    </div>
+    <% if(step == 2) { %>
+        <div class="col-md-8">
+            <table id="table_id" class="display">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Tipo</th>
+                    <th>Carrera</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% if(usuarios) { %> <% for (var i = 0; i < usuarios.length; i++) { %>
+                  <tr>
+                    <td><%= usuarios[i].nombre_apellido %></td>
+                    <td><%= usuarios[i].dni %></td>
+                    <td><%= usuarios[i].Descripcion %></td>
+                    <td><%= `${usuarios[i].NombreCarrera}(${usuarios[i].AñoCarrera})` %></td>
+                    <td>
+                      <a
+                        href="<%= `${data.idLibro}-${usuarios[i].idUsuario}` %>"
+                        class="btn btn-success btn-sm"
+                        >SELECCIONAR</a>
+                    </td>
+                  </tr>
+                  <% } %> <% } %>
+                </tbody>
+              </table>
+        </div>
+    <% } %>
+    <% if(step == 3) { %>
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-header">Usuario</div>
+            <div class="card-body">
+              <h4 class="card-title"><%= usuario.nombre_apellido %></h4>
+              <p class="card-text">
+                <p>DNI: <%= usuario.dni %></p>
+                <p>Tipo Usuario: <%= usuario.Descripcion %></p>
+                <p>Carrera: <%= usuario.NombreCarrera %></p>
+                <p>Año: <%= usuario.AñoCarrera %></p>
+              </p>
+            </div>
+          </div>
+    </div>
+
+    <% } %>
+    <% if(step == 3) { %>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+              <form action="<%= `${data.idLibro}-${usuario.idUsuario}` %>" method="POST">
+                <div class="form-group">
+                  <input
+                    type="number"
+                    name="cantidad"
+                    placeholder="Cantidad"
+                    class="form-control"
+                    min="1" 
+                    max="<%= data.stock %>"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                    <label for="TiempoEstadia_idTiempoEstadia" class="form-label mt-2">Tiempo de Estadia</label>
+                    <select class="form-select" name="TiempoEstadia_idTiempoEstadia">
+                      <% if(tiempoEstadia) { %> <% for (var i = 0; i < tiempoEstadia.length; i++)
+                      { %>
+                      <option value="<%= tiempoEstadia[i].idTiempoEstadia%>">
+                        <%= tiempoEstadia[i].descripcion%>
+                      </option>
+                      <% } %> <% } %>
+                    </select>
+                  </div>
+                <div class="form-group mt-2">
+                  <button type="submit" class="btn btn-primary">CONFIRMAR</button>
+                </div>
+              </form>
+            </div>
+          </div>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include("partials/_footer") -%>

@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
 // ADD ACTION
 router.post("/add", (req, res) => {
   const data = req.body;
-  console.log("asd", data);
+  console.log("req", data);
   req.getConnection((err, conn) => {
     if (err) res.json(err);
     conn.query("INSERT INTO usuarios set ?", [data], (err, row) => {
