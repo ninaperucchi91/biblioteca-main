@@ -1,14 +1,16 @@
 const express = require("express");
 const router = express.Router();
-
+const url = require("url");
 //LISTADO
 router.get("/", (req, res) => {
+  const message = ({ titulo, body, type } = req.query);
   req.getConnection((err, conn) => {
     if (err) res.json(err);
     conn.query("SELECT * FROM autor", (err, filas) => {
       if (err) res.json(err);
       res.render("autores", {
         data: filas,
+        message: message,
       });
     });
   });
@@ -33,9 +35,34 @@ router.get("/delete/:id", (req, res) => {
   req.getConnection((err, conn) => {
     if (err) res.json(err);
     conn.query("DELETE FROM autor WHERE idAutor = ?", [id], (err, row) => {
-      if (err) res.json(err);
-      console.log(row);
-      res.redirect("/autores");
+      if (err) {
+        if (err.errno == 1451) {
+          res.redirect(
+            url.format({
+              pathname: "/autores",
+              query: {
+                titulo: "Operacion Invalida",
+                body: "No se puede eliminar un autor que ya fue asignado a un libro",
+                type: "danger",
+              },
+            })
+          );
+        } else {
+          res.redirect(
+            url.format({
+              pathname: "/autores",
+              query: {
+                titulo: "Operacion Invalida",
+                body: "Error al eliminar el autor",
+                type: "danger",
+              },
+            })
+          );
+        }
+      } else {
+        console.log(row);
+        res.redirect("/autores");
+      }
     });
   });
 });
