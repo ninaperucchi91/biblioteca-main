@@ -20,7 +20,7 @@ quitar columnas para imprimir - DONE
 
 ordenar tablas - DONE
 
-quitar unique en tablas
+refactor unique en tablas - DONE
 
 estado/fecha de entrega
 
