@@ -94,7 +94,7 @@
                 <% if(carrera) { %> <% for (var i = 0; i < carrera.length; i++)
                 { %>
                 <option value="<%= carrera[i].idCarrera%>">
-                  <%= carrera[i].NombreCarrera%>
+                  <%= `${carrera[i].NombreCarrera} - ${carrera[i].AñoCarrera}`%>
                 </option>
                 <% } %> <% } %>
               </select>

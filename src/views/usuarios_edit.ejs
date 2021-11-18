@@ -63,7 +63,7 @@
                 i++) { %>carreras
                 <option <%=( data.idCarrera == carreras[i].idCarrera ) ? "selected"
                 : ""; %> value="<%= carreras[i].idCarrera%>">
-                  <%= carreras[i].NombreCarrera%>
+                  <%= carreras[i].NombreCarrera + " - " + carreras[i].AñoCarrera%>
                 </option>
                 <% } %> <% } %>
               </select>

@@ -34,6 +34,8 @@
               <% } %>
             </td>
             <td>
+              <% if(data[i].esRetiro == 0) { %>
+
               <a
                 href="prestamo/delete/<%= `${data[i].idMovimientos}-${data[i].cantidad}-${data[i].IdLibro}`%>"
                 class="btn btn-danger btn-sm"
@@ -44,6 +46,7 @@
                 class="btn btn-warning btn-sm"
                 >DEVOLUCION</a
               >
+              <% } %>
             </td>
           </tr>
           <% } %> <% } %>
