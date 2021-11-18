@@ -1,7 +1,7 @@
 <%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
 
 <div class="container mt-5">
-  <h3>Devolucion - Cantidad Prestada: <%= movimiento.cantidad %></h3>
+  <h3>Devolucion - Cantidad Prestada: <%= movimiento.cantidad-movimiento.devueltos %></h3>
   <div class="row mt-4">
     <div class="col-md-4">
       <div class="card text-white bg-success mb-3">
@@ -45,10 +45,9 @@
                     placeholder="Cantidad"
                     class="form-control"
                     min="1" 
-                    max="<%= movimiento.cantidad %>"
-                    value="<%= movimiento.cantidad %>"
+                    max="<%= movimiento.cantidad-movimiento.devueltos %>"
+                    value="<%= movimiento.cantidad-movimiento.devueltos %>"
                     required
-                    readonly
                   />
                 </div>
                 <input

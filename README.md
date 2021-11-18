@@ -22,9 +22,9 @@ ordenar tablas - DONE
 
 refactor unique en tablas - DONE
 
-estado/fecha de entrega
+demoras en entrega - DONE
 
-devolucion menor al original
+devolucion menor al original - DONE
 
 triggers
 

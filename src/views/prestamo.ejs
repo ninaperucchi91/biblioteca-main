@@ -1,6 +1,6 @@
 <%- include("partials/_header") -%> <%- include("partials/_navbar") -%>
 
-<div class="container">
+<div class="container-fluid">
   <h3 class="mt-2">Prestamos</h3>
   <div class="row mt-5">
     <div class="col-md-12">
@@ -12,6 +12,7 @@
             <th>Dni</th>
             <th>Cantidad</th>
             <th>Fecha</th>
+            <th>Demora</th>
             <th>Estado</th>
             <th>Acciones</th>
           </tr>
@@ -22,19 +23,44 @@
             <td><%= data[i].nombre %></td>
             <td><%= data[i].nombre_apellido %></td>
             <td><%= data[i].dni %></td>
-            <td><%= data[i].cantidad %></td>
+            <td>
+              <% if(data[i].esRetiro == 0 || data[i].cantidad >
+              data[i].devueltos) { %> <%= `${data[i].devueltos} de
+              ${data[i].cantidad}` %> <% }else{ %> <%= `${data[i].devueltos}` %>
+              <% } %>
+            </td>
             <td><%= data[i].fecha.toDateString() %></td>
             <td>
-              <% if(data[i].esRetiro == 1) { %>
+              <% const fechaPrestamo = new Date(data[i].fecha) %> <% const
+              fechaActual = new Date() %> <% const oneDay = 24 * 60 * 60 * 1000;
+              %> <% let retraso =data[i].TiempoEstadia -
+              Math.round(Math.abs((fechaPrestamo - fechaActual) / oneDay)); %>
+              <% retraso = (retraso == 0 ? retraso + 1 : retraso) %> <%
+              if(retraso > 0 && data[i].cantidad > data[i].devueltos) { %>
+              <button class="btn btn-success btn-sm">
+                <%= retraso %> DIAS RESTANTES
+              </button>
+              <% } %> <% if(retraso < 0 && data[i].cantidad > data[i].devueltos)
+              { %>
+              <button class="btn btn-danger btn-sm">
+                RETRASADO <%= Math.abs(retraso) %> DIAS
+              </button>
+              <% } %>
+            </td>
+            <td>
+              <% if(data[i].esRetiro == 1 && (data[i].cantidad ==
+              data[i].devueltos)) { %>
               <button class="btn btn-success btn-sm">ENTREGADO</button>
               <% } %> <% if(data[i].esRetiro == 3) { %>
               <button class="btn btn-info btn-sm">DEVOLUCION</button>
-              <% } %> <% if(data[i].esRetiro == 0) { %>
+              <% } %> <% if(data[i].cantidad > data[i].devueltos &&
+              data[i].esRetiro !== 3) { %>
               <button class="btn btn-danger btn-sm">PENDIENTE</button>
               <% } %>
             </td>
             <td>
-              <% if(data[i].esRetiro == 0) { %>
+              <% if(data[i].esRetiro == 0 || (data[i].cantidad >
+              data[i].devueltos)) { %>
 
               <a
                 href="prestamo/delete/<%= `${data[i].idMovimientos}-${data[i].cantidad}-${data[i].IdLibro}`%>"

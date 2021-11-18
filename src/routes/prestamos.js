@@ -34,9 +34,10 @@ const quitarStockQuery = `UPDATE libros
     WHERE idLibro = ?;`;
 
 const listMovimientosQuery = `SELECT movimientos.*, libros.nombre, 
-    usuarios.nombre_apellido, usuarios.dni FROM mydb.movimientos 
+    usuarios.nombre_apellido, usuarios.dni, tiempoestadia.TiempoEstadia FROM mydb.movimientos 
     inner join usuarios on movimientos.idEstudiante = usuarios.idUsuario
     inner join libros on movimientos.idLibro = libros.idLibro
+    inner join tiempoestadia on movimientos.TiempoEstadia_idTiempoEstadia = tiempoestadia.idTiempoEstadia
     order by idMovimientos desc;`;
 
 const deleteMovimientoQuery = `DELETE FROM movimientos WHERE idMovimientos = ?;`;
@@ -46,7 +47,7 @@ const addStockQuery = `UPDATE libros
     WHERE idLibro = ?;`;
 
 const updateMovimientosQuery = `UPDATE movimientos
-SET esRetiro = ?
+SET esRetiro = ?, devueltos = devueltos + ?
 WHERE idMovimientos = ?;`;
 
 //LISTADO
@@ -173,11 +174,12 @@ router.post("/devolucion/:id-:idUsuario-:idLibro", (req, res) => {
   data["idLibro"] = idLibro;
   data["idEstudiante"] = idUsuario;
   data["esRetiro"] = 3;
+  data["devueltos"] = data.cantidad;
   req.getConnection((err, conn) => {
     if (err) res.json(err);
     conn.query(
       updateMovimientosQuery + addMovimientoQuery + addStockQuery,
-      [1, id, data, data.cantidad, idLibro],
+      [1, data.cantidad, id, data, data.cantidad, idLibro],
       (err, row) => {
         if (err) res.json(err);
         console.log(row);
