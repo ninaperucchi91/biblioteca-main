@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const url = require("url");
+var Autores = require("../queries/autores");
 //LISTADO
 router.get("/", (req, res) => {
   const message = ({ titulo, body, type } = req.query);
   req.getConnection((err, conn) => {
     if (err) res.json(err);
-    conn.query("SELECT * FROM autor", (err, filas) => {
+    conn.query(Autores.getAll, (err, filas) => {
       if (err) res.json(err);
       res.render("autores", {
         data: filas,
@@ -21,7 +22,7 @@ router.post("/add", (req, res) => {
   const data = req.body;
   req.getConnection((err, conn) => {
     if (err) res.json(err);
-    conn.query("INSERT INTO autor set ?", [data], (err, row) => {
+    conn.query(Autores.new, [data], (err, row) => {
       if (err) res.json(err);
       console.log(row);
       res.redirect("/autores");
@@ -34,7 +35,7 @@ router.get("/delete/:id", (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
     if (err) res.json(err);
-    conn.query("DELETE FROM autor WHERE idAutor = ?", [id], (err, row) => {
+    conn.query(Autores.delete, [id], (err, row) => {
       if (err) {
         if (err.errno == 1451) {
           res.redirect(
@@ -48,6 +49,7 @@ router.get("/delete/:id", (req, res) => {
             })
           );
         } else {
+          console.log(err);
           res.redirect(
             url.format({
               pathname: "/autores",
@@ -72,7 +74,7 @@ router.get("/edit/:id", (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
     if (err) res.json(err);
-    conn.query("SELECT * FROM autor WHERE idAutor = ?", [id], (err, row) => {
+    conn.query(Autores.getById, [id], (err, row) => {
       if (err) res.json(err);
       console.log(row);
       res.render("autores_edit", { data: row[0] });
@@ -86,15 +88,11 @@ router.post("/edit/:id", (req, res) => {
   const data = req.body;
   req.getConnection((err, conn) => {
     if (err) res.json(err);
-    conn.query(
-      "UPDATE autor set ? WHERE idAutor = ?",
-      [data, id],
-      (err, row) => {
-        if (err) res.json(err);
-        console.log(row);
-        res.redirect("/autores");
-      }
-    );
+    conn.query(Autores.update, [data, id], (err, row) => {
+      if (err) res.json(err);
+      console.log(row);
+      res.redirect("/autores");
+    });
   });
 });
 
